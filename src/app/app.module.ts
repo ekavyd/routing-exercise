@@ -11,6 +11,8 @@ import { UserComponent } from './users/user/user.component';
 import { EditServerComponent } from './servers/edit-server/edit-server.component';
 import { ServerComponent } from './servers/server/server.component';
 import { ServersService } from './servers/servers.service';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { AppRoutingModule } from './app-routing.module';
 
 // after adding routes, also need to add to imports -- router module and pass routes as arg
 const appRoutes: Routes = [
@@ -23,6 +25,9 @@ const appRoutes: Routes = [
     { path: ':id', component: ServerComponent },
     { path: ':id/edit', component: EditServerComponent },
   ]},
+  {path: 'not-found', component: PageNotFoundComponent},
+  //use wildcard to catch all unknown routes, routes checked top to bottom ::keep last
+  {path: '**', redirectTo: '/not-found'}
 ];
 
 @NgModule({
@@ -33,12 +38,14 @@ const appRoutes: Routes = [
     ServersComponent,
     UserComponent,
     EditServerComponent,
-    ServerComponent
+    ServerComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    RouterModule.forRoot(appRoutes)
+    AppRoutingModule
+
   ],
   providers: [ServersService],
   bootstrap: [AppComponent]

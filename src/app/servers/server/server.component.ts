@@ -33,8 +33,10 @@ export class ServerComponent implements OnInit, OnDestroy {
   }
 
   onEdit() {
-    let permitEdit = this.route.snapshot.queryParams['allowEdit'];
-    this.router.navigate(['/servers',this.server.id,'edit'], {queryParams: {allowEdit: permitEdit}});
+    //let permitEdit = this.route.snapshot.queryParams['allowEdit'];
+    // this.router.navigate(['/servers',this.server.id,'edit'], {queryParams: {allowEdit: permitEdit}});
+    this.router.navigate(['edit'], {relativeTo: this.route, queryParamsHandling: 'preserve'});
+
   }
 
   ngOnDestroy(){
