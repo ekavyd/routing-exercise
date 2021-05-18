@@ -15,11 +15,14 @@ import { ServersService } from './servers/servers.service';
 // after adding routes, also need to add to imports -- router module and pass routes as arg
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'users', component: UsersComponent },
-  { path: 'users/:id/:name', component: UserComponent },
-  { path: 'servers', component: ServersComponent },
-  { path: 'server/:id', component: ServerComponent },
-  { path: 'servers/:id/edit', component: EditServerComponent },
+  { path: 'users', component: UsersComponent, children:[
+    { path: ':id/:name', component: UserComponent }
+  ]},
+  { path: 'servers', component: ServersComponent, children: [
+    //add child routes
+    { path: ':id', component: ServerComponent },
+    { path: ':id/edit', component: EditServerComponent },
+  ]},
 ];
 
 @NgModule({

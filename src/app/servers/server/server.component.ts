@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { ServersService } from '../servers.service';
@@ -14,7 +14,7 @@ export class ServerComponent implements OnInit, OnDestroy {
   paramSub: Subscription;
   fragmentSub: Subscription;
 
-  constructor(private serversService: ServersService, private route: ActivatedRoute) { }
+  constructor(private serversService: ServersService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     const queryId = +this.route.snapshot.params['id'];
@@ -30,6 +30,11 @@ export class ServerComponent implements OnInit, OnDestroy {
     this.fragmentSub = this.route.fragment.subscribe();
     //this.server = this.serversService.getServer(1);
 
+  }
+
+  onEdit() {
+    let permitEdit = this.route.snapshot.queryParams['allowEdit'];
+    this.router.navigate(['/servers',this.server.id,'edit'], {queryParams: {allowEdit: permitEdit}});
   }
 
   ngOnDestroy(){
